@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import './UserForm.css';
 import { Gender } from '../../models/gender';
 import { User } from '../../models/user';
+import { Dialog } from '../Dialog';
 
 interface Props {
     saveUser: (user: User) => void;
 }
 
 export const UserForm: React.FC<Props> = (props) => {
+    const [open, isOpen] = useState<boolean>(false);
     const [currentUser, setCurrentUser] = useState<User>({
         id: 0,
         forename: '',
@@ -19,6 +21,7 @@ export const UserForm: React.FC<Props> = (props) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        toggleDialog();
         props.saveUser(currentUser);
     }
 
@@ -31,23 +34,33 @@ export const UserForm: React.FC<Props> = (props) => {
         setCurrentUser(newCurrentUser);
     }
 
+    const toggleDialog = () => {
+        isOpen(!open);
+    }
+
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor='forename'>Forename</label>
-            <input onChange={handleChange} required name='forename' type='text' id='forename' />
-            <label htmlFor='surname'>Surname</label>
-            <input onChange={handleChange} required name='surname' type='text' id='surname' />
-            <label htmlFor='birthday'>Birthday</label>
-            <input onChange={handleChange} required name='birthday' type='date' id='birthday' />
-            <label htmlFor='email'>Email</label>
-            <input onChange={handleChange} name='email' type='email' id='email' />
-            <label htmlFor='gender'>Gender</label>
-            <select onChange={handleChange} name='gender' id='gender'>
-                <option value={Gender.MALE}>Male</option>
-                <option value={Gender.FEMALE}>Female</option>
-                <option value={Gender.OTHER}>Other</option>
-            </select>
-            <input type='submit' value='Create new user' />
-        </form>
+        <>
+            <button onClick={toggleDialog}>New</button>
+            <Dialog open={open}>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor='forename'>Forename</label>
+                    <input onChange={handleChange} required name='forename' type='text' id='forename' />
+                    <label htmlFor='surname'>Surname</label>
+                    <input onChange={handleChange} required name='surname' type='text' id='surname' />
+                    <label htmlFor='birthday'>Birthday</label>
+                    <input onChange={handleChange} required name='birthday' type='date' id='birthday' />
+                    <label htmlFor='email'>Email</label>
+                    <input onChange={handleChange} name='email' type='email' id='email' />
+                    <label htmlFor='gender'>Gender</label>
+                    <select onChange={handleChange} name='gender' id='gender'>
+                        <option value={Gender.MALE}>Male</option>
+                        <option value={Gender.FEMALE}>Female</option>
+                        <option value={Gender.OTHER}>Other</option>
+                    </select>
+                    <input type='submit' value='Create new user' />
+                </form>
+                <button onClick={toggleDialog}>Cancel</button>
+            </Dialog>
+        </>
     );
 }
