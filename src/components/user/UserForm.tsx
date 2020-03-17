@@ -6,18 +6,22 @@ import { Dialog } from '../Dialog';
 
 interface Props {
     saveUser: (user: User) => void;
+    user?: User;
 }
 
 export const UserForm: React.FC<Props> = (props) => {
+    const initialUser = props.user 
+        ? props.user
+        : {
+            id: 0,
+            forename: '',
+            surname: '',
+            birthday: 0,
+            email: '',
+            gender: Gender.MALE
+        };
     const [open, isOpen] = useState<boolean>(false);
-    const [currentUser, setCurrentUser] = useState<User>({
-        id: 0,
-        forename: '',
-        surname: '',
-        birthday: 0,
-        email: '',
-        gender: Gender.MALE
-    });
+    const [currentUser, setCurrentUser] = useState<User>(initialUser);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -40,11 +44,13 @@ export const UserForm: React.FC<Props> = (props) => {
 
     return (
         <>
-            <button onClick={toggleDialog}>New</button>
+            <button onClick={toggleDialog}>
+                {props.user ? 'Edit' : 'New'}
+            </button>
             <Dialog open={open}>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor='forename'>Forename</label>
-                    <input onChange={handleChange} required name='forename' type='text' id='forename' />
+                    <input onChange={handleChange} required name='forename' type='text' id='forename' defaultValue={currentUser.forename}/>
                     <label htmlFor='surname'>Surname</label>
                     <input onChange={handleChange} required name='surname' type='text' id='surname' />
                     <label htmlFor='birthday'>Birthday</label>

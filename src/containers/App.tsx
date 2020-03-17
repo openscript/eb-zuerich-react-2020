@@ -19,6 +19,10 @@ function App() {
     setUsers(newUsers);
   }
 
+  const updateUser = (user: User) => {
+
+  }
+
   const deleteUser = (userId: number) => {
     const newUsers = users.filter(u => u.id !== userId);
     setUsers(newUsers);
@@ -27,7 +31,7 @@ function App() {
   return (
     <div className="App">
       <UserForm saveUser={createUser} />
-      <UserIndex users={users} deleteAction={deleteUser} />
+      <UserIndex users={users} updateAction={updateUser} deleteAction={deleteUser} />
     </div>
   );
 }

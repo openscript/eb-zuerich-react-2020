@@ -1,9 +1,11 @@
 import React from 'react';
 import { User } from '../../models/user';
+import { UserForm } from './UserForm';
 
 interface Props {
     users: User[]; // gleich wie users: Array<User>;
     deleteAction: (id: number) => void;
+    updateAction: (user: User) => void;
 }
 
 export const UserIndex: React.FC<Props> = (props) => {
@@ -28,6 +30,7 @@ export const UserIndex: React.FC<Props> = (props) => {
                         <td>{user.email}</td>
                         <td>{user.gender}</td>
                         <td>
+                            <UserForm saveUser={props.updateAction} user={user} />
                             <button onClick={() => props.deleteAction(user.id)}>
                                 Delete
                             </button>
