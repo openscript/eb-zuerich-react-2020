@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, useRouteMatch, useHistory } from "react-router";
+import { useParams, useHistory } from "react-router";
 
 interface RouteParams {
     id: string;

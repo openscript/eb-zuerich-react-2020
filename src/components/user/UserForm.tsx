@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import './UserForm.css';
 import { Gender } from '../../models/gender';
 import { User } from '../../models/user';
 import { Dialog } from '../Dialog';
+import styled from '@emotion/styled';
+
+const CustomForm = styled.form`
+    input {
+        display: block;
+    }
+`;
 
 interface Props {
     saveUser: (user: User) => void;
@@ -48,7 +54,7 @@ export const UserForm: React.FC<Props> = (props) => {
                 {props.user ? 'Edit' : 'New'}
             </button>
             <Dialog open={open}>
-                <form onSubmit={handleSubmit}>
+                <CustomForm onSubmit={handleSubmit}>
                     <label htmlFor='forename'>Forename</label>
                     <input onChange={handleChange} required name='forename' type='text' id='forename' defaultValue={currentUser.forename} />
                     <label htmlFor='surname'>Surname</label>
@@ -64,7 +70,7 @@ export const UserForm: React.FC<Props> = (props) => {
                         <option value={Gender.OTHER}>Other</option>
                     </select>
                     <input type='submit' value='Create new user' />
-                </form>
+                </CustomForm>
                 <button onClick={toggleDialog}>Cancel</button>
             </Dialog>
         </>
