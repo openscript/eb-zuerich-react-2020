@@ -20,7 +20,8 @@ function App() {
   }
 
   const updateUser = (user: User) => {
-
+    const newUsers = users.map((u) => (u.id === user.id ? user : u));
+    setUsers(newUsers);
   }
 
   const deleteUser = (userId: number) => {

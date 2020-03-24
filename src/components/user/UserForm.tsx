@@ -50,15 +50,15 @@ export const UserForm: React.FC<Props> = (props) => {
             <Dialog open={open}>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor='forename'>Forename</label>
-                    <input onChange={handleChange} required name='forename' type='text' id='forename' defaultValue={currentUser.forename}/>
+                    <input onChange={handleChange} required name='forename' type='text' id='forename' defaultValue={currentUser.forename} />
                     <label htmlFor='surname'>Surname</label>
-                    <input onChange={handleChange} required name='surname' type='text' id='surname' />
+                    <input onChange={handleChange} required name='surname' type='text' id='surname' defaultValue={currentUser.surname} />
                     <label htmlFor='birthday'>Birthday</label>
                     <input onChange={handleChange} required name='birthday' type='date' id='birthday' />
                     <label htmlFor='email'>Email</label>
-                    <input onChange={handleChange} name='email' type='email' id='email' />
+                    <input onChange={handleChange} name='email' type='email' id='email' defaultValue={currentUser.email} />
                     <label htmlFor='gender'>Gender</label>
-                    <select onChange={handleChange} name='gender' id='gender'>
+                    <select onChange={handleChange} name='gender' id='gender' defaultValue={currentUser.gender}>
                         <option value={Gender.MALE}>Male</option>
                         <option value={Gender.FEMALE}>Female</option>
                         <option value={Gender.OTHER}>Other</option>
