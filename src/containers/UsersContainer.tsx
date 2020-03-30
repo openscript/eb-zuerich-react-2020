@@ -12,7 +12,8 @@ export const UsersContainer: React.FC = () => {
       surname: "Norris",
       birthday: new Date().getTime(),
       email: "juck@norris.com",
-      gender: Gender.MALE
+      gender: Gender.MALE,
+      active: false
     },
     {
       id: 1,
@@ -20,7 +21,8 @@ export const UsersContainer: React.FC = () => {
       surname: "Bühler",
       birthday: new Date().getTime(),
       email: "r@obin.ch",
-      gender: Gender.MALE
+      gender: Gender.MALE,
+      active: true
     },
     {
       id: 2,
@@ -28,7 +30,8 @@ export const UsersContainer: React.FC = () => {
       surname: "Johanson",
       birthday: new Date().getTime(),
       email: "s@johannson.ch",
-      gender: Gender.MALE
+      gender: Gender.MALE,
+      active: false
     }
   ];
 

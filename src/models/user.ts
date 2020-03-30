@@ -6,7 +6,8 @@ export interface User {
     surname: string,
     email: string,
     birthday: number,
-    gender: Gender
+    gender: Gender,
+    active: boolean
 }
 
 export interface UserDraft extends Omit<User, 'id'> {

@@ -18,6 +18,7 @@ export const UserIndex: React.FC<Props> = (props) => {
                     <th>Birthday</th>
                     <th>Email</th>
                     <th>Gender</th>
+                    <th>Active?</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -26,9 +27,10 @@ export const UserIndex: React.FC<Props> = (props) => {
                     <tr key={user.id}>
                         <td>{user.forename}</td>
                         <td>{user.surname}</td>
-                        <td>{user.birthday}</td>
+                        <td>{new Date(user.birthday).toLocaleDateString()}</td>
                         <td>{user.email}</td>
                         <td>{user.gender}</td>
+                        <td>{user.active ? 'Yes' : 'No'}</td>
                         <td>
                             <UserForm saveUser={props.updateAction} user={user} />
                             <button onClick={() => props.deleteAction(user.id)}>
