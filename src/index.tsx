@@ -4,15 +4,30 @@ import './index.css';
 import { App } from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import { Store, createStore } from 'redux';
-import { State, initialState } from './models/state';
+import { State } from './models/state';
 import { reducer } from './models/reducer'; 
 import { Provider } from 'react-redux';
+import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/es/storage';
+import { PersistGate } from 'redux-persist/integration/react';
 
-const store: Store<State> = createStore(reducer, initialState);
+const persistorConfig: PersistConfig<State> = {
+    key: 'user-manager',
+    version: 1,
+    storage
+}
+
+const persistentReducer = persistReducer(persistorConfig, reducer);
+
+const store: Store<State> = createStore(persistentReducer);
+
+const persistor = persistStore(store);
 
 const createApp = () => (
     <Provider store={store}>
-        <App />
+        <PersistGate persistor={persistor}>
+            <App />
+        </PersistGate>
     </Provider>
 )
 

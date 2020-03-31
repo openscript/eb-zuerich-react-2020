@@ -1,5 +1,5 @@
 import { createAction, ActionType } from 'typesafe-actions';
-import { User } from '../models/user';
+import { User, defaultUsers } from '../models/user';
 
 export const createUser = createAction('users/CREATE')<User>();
 export const updateUser = createAction('users/UPDATE')<User>();
@@ -7,7 +7,7 @@ export const deleteUser = createAction('users/DELETE')<User>();
 
 type UserActions = ActionType<typeof createUser | typeof updateUser | typeof deleteUser>;
 
-export const usersReducer = (state: User[] = [], action: UserActions) => {
+export const usersReducer = (state: User[] = defaultUsers, action: UserActions) => {
     switch (action.type) {
         case 'users/CREATE':
             return [...state, { ...action.payload, id: new Date().getTime() }];
