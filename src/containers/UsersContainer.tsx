@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { UserIndex } from "../components/user/UserIndex";
 import { User } from "../models/user";
 import { Gender } from "../models/gender";
 import { UserForm } from "../components/user/UserForm";
+import { useSelector, useDispatch } from "react-redux";
+import { State } from "../models/state";
+import { bindActionCreators } from "redux";
+import { createUser, deleteUser, updateUser } from "../features/userFeature";
 
 export const UsersContainer: React.FC = () => {
   const defaultUsers: User[] = [
@@ -35,31 +39,17 @@ export const UsersContainer: React.FC = () => {
     }
   ];
 
-  const [users, setUsers] = useState<User[]>(defaultUsers);
-
-  const createUser = (user: User) => {
-    const newUser = { ...user, id: new Date().getTime() };
-    const newUsers = [...users, newUser];
-    setUsers(newUsers);
-  };
-
-  const updateUser = (user: User) => {
-    const newUsers = users.map(u => (u.id === user.id ? user : u));
-    setUsers(newUsers);
-  };
-
-  const deleteUser = (userId: number) => {
-    const newUsers = users.filter(u => u.id !== userId);
-    setUsers(newUsers);
-  };
+  const users = useSelector<State, User[]>(state => state.users);
+  const dispatch = useDispatch();
+  const actions = bindActionCreators({createUser, deleteUser, updateUser}, dispatch);
 
   return (
     <>
-      <UserForm saveUser={createUser} />
+      <UserForm saveUser={actions.createUser} />
       <UserIndex
         users={users}
-        updateAction={updateUser}
-        deleteAction={deleteUser}
+        updateAction={actions.updateUser}
+        deleteAction={actions.deleteUser}
       />
     </>
   );

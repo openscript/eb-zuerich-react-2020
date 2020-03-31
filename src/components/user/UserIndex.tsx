@@ -4,7 +4,7 @@ import { UserForm } from './UserForm';
 
 interface Props {
     users: User[]; // gleich wie users: Array<User>;
-    deleteAction: (id: number) => void;
+    deleteAction: (user: User) => void;
     updateAction: (user: User) => void;
 }
 
@@ -33,7 +33,7 @@ export const UserIndex: React.FC<Props> = (props) => {
                         <td>{user.active ? 'Yes' : 'No'}</td>
                         <td>
                             <UserForm saveUser={props.updateAction} user={user} />
-                            <button onClick={() => props.deleteAction(user.id)}>
+                            <button onClick={() => props.deleteAction(user)}>
                                 Delete
                             </button>
                         </td>
