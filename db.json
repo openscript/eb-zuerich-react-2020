@@ -1,0 +1,22 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "forename": "Robin",
+            "surname": "Bühler",
+            "birthday": 0,
+            "email": "r@obin.ch",
+            "gender": "male",
+            "active": true
+        },
+        {
+            "id": 2,
+            "forename": "Tim",
+            "surname": "Bühler",
+            "birthday": 0,
+            "email": "t@im.ch",
+            "gender": "male",
+            "active": true
+        }
+    ]
+}
