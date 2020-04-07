@@ -1,7 +1,7 @@
 import { createAction, ActionType } from 'typesafe-actions';
 import { User } from '../models/user';
 import { Dispatch } from 'redux';
-import { indexUsersClient, createUserClient } from '../client/userClient';
+import { indexUsersClient, createUserClient, updateUserClient, deleteUserClient } from '../client/userClient';
 
 export const indexUsers = createAction('users/INDEX')<User[]>();
 export const indexUsersAction = () => {
@@ -18,7 +18,18 @@ export const createUserAction = (user: User) => {
 };
 
 export const updateUser = createAction('users/UPDATE')<User>();
+export const updateUserAction = (user: User) => {
+    return (dispatch: Dispatch) => {
+        updateUserClient(user).then(response => dispatch(updateUser(response.data)));
+    }
+};
+
 export const deleteUser = createAction('users/DELETE')<User>();
+export const deleteUserAction = (user: User) => {
+    return (dispatch: Dispatch) => {
+        deleteUserClient(user).then(() => dispatch(deleteUser(user)));
+    }
+};
 
 type UserActions = ActionType<typeof indexUsers | typeof createUser | typeof updateUser | typeof deleteUser>;
 
