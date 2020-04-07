@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { App } from './containers/App';
 import * as serviceWorker from './serviceWorker';
-import { Store, createStore } from 'redux';
+import { Store, createStore, applyMiddleware } from 'redux';
 import { State } from './models/state';
 import { reducer } from './models/reducer'; 
 import { Provider } from 'react-redux';
 import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/es/storage';
 import { PersistGate } from 'redux-persist/integration/react';
+import thunk from 'redux-thunk';
 
 const persistorConfig: PersistConfig<State> = {
     key: 'user-manager',
@@ -19,7 +20,7 @@ const persistorConfig: PersistConfig<State> = {
 
 const persistentReducer = persistReducer(persistorConfig, reducer);
 
-const store: Store<State> = createStore(persistentReducer);
+const store: Store<State> = createStore(persistentReducer, applyMiddleware(thunk));
 
 const persistor = persistStore(store);
 
